@@ -22,11 +22,7 @@ const renderTodos = function(todos, filters) {
     
 
     output = output.filter(function(todo) {
-        if (filters.hideCompleted) {
-            return !todo.completed
-        } else {
-            return true
-        }
+       return !filters.hideCompleted || !todo.completed
     })
 
 
