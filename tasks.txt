@@ -1,0 +1,3 @@
+1. Set up a div conteiner for todos
+2. Set up filters (Search Text) and wire up a new filter to change it
+3. Create a renderTodos function to render and rerender the latest filtered data
