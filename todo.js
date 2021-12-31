@@ -11,20 +11,30 @@ let new_todos = [
 
 // Rendering user input
 const filters = {
-    searchText: ""
+    searchText: "",
+    hideCompleted: false
 }
 
 const renderTodos = function(todos, filters) {
-    const output = todos.filter(function(item) {
+    let output = todos.filter(function(item) {
         return item.text.toLowerCase().includes(filters.searchText.toLowerCase())
     })
-    document.querySelector("#todos-div").innerHTML = ""
+    
+
+    output = output.filter(function(todo) {
+        if (filters.hideCompleted) {
+            return !todo.completed
+        } else {
+            return true
+        }
+    })
 
 
     // 1. You have 2 todos left (p elemet)
     const incomplete = output.filter(function(todos) {
         return !todos.completed
     })
+    document.querySelector("#todos-div").innerHTML = ""
     const msg = `You have ${incomplete.length} todos left`
     const newP = document.createElement("h1")
     newP.textContent = msg
@@ -54,4 +64,12 @@ document.querySelector("#todos-form").addEventListener("submit", function(event)
     event.target.elements.userInput.value = ""
     renderTodos(new_todos, filters)
 
+})
+
+
+// USING A CHECKBOX
+
+document.querySelector("#todos-label").addEventListener("change", function(e) {
+    filters.hideCompleted = e.target.checked
+    renderTodos(new_todos, filters)
 })

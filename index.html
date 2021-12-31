@@ -6,14 +6,20 @@
     <body>
         <h1>Welcome to the <i>TODO</i> website</h1>
 
-        <button id="add-todo">Add todo</button>
         <input type="text" id="search-todo" placeholder="Search for TODOs">
+
+        <label id="todos-label">
+            <input type="checkbox" id="todo-checkbox"> Check to see TODOs
+        </label>
+        
         <div id="todos-div"></div><br>
 
         <form id="todos-form">
             <input id="todos-input" placeholder="Add a TODO" name="userInput">
             <button id="todos-button">Submit</button>
-        </form>
+        </form><br><br>
+
+        
         <script src="todo.js"></script>
     </body>
 </html>
