@@ -1,4 +1,4 @@
-let new_todos = [
+let todos = [
     { text: 'Got to Wal Mart', completed: true },
     { text: 'Get eggs', completed: false },
     { text: 'Exerciese', completed: false },
@@ -6,6 +6,13 @@ let new_todos = [
     { text: 'Get some rest', completed: false },
     { text: 'Play Valorant', completed: true }
 ]
+
+// Checking if the local storage is empty (if not, assign )
+const todosJSON = localStorage.getItem("todos")
+if (todosJSON !== null) {
+    todos = JSON.parse(todosJSON)
+    console.log("WORKING....")
+}
 
 
 
@@ -47,7 +54,7 @@ const renderTodos = function(todos, filters) {
 }
 document.querySelector("#search-todo").addEventListener("input", function(event) {
     filters.searchText = event.target.value
-    renderTodos(new_todos, filters)
+    renderTodos(todos, filters)
 })
 
 
@@ -56,16 +63,18 @@ document.querySelector("#search-todo").addEventListener("input", function(event)
 document.querySelector("#todos-form").addEventListener("submit", function(event) {
     event.preventDefault()
     const input = event.target.elements.userInput.value
-    new_todos.push({text: input, completed: false})
+    todos.push({text: input, completed: false})
+
+    localStorage.setItem("todos", JSON.stringify(todos))
+
     event.target.elements.userInput.value = ""
-    renderTodos(new_todos, filters)
+    renderTodos(todos, filters)
 
 })
 
 
-// USING A CHECKBOX
 
 document.querySelector("#todos-label").addEventListener("change", function(e) {
     filters.hideCompleted = e.target.checked
-    renderTodos(new_todos, filters)
+    renderTodos(todos, filters)
 })
