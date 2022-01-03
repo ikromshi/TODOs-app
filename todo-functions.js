@@ -31,9 +31,19 @@ const renderTodos = function(todos, filters) {
 // Generates all to
 const generateTodoDOM = function(output) {
     output.forEach(function(item) {
-        const newP = document.createElement("p")
-        newP.textContent = item.text 
-        document.querySelector("#todos-div").appendChild(newP)
+        const newDiv = document.createElement("div")
+        const newSpan = document.createElement("span")
+        const checkbox = document.createElement("input")
+        const button = document.createElement("button")
+
+        button.textContent = "Delete"
+        checkbox.setAttribute("type", "checkbox")
+
+        newDiv.appendChild(checkbox)
+        newSpan.textContent = `${item.text} ` 
+        newDiv.appendChild(newSpan)
+        newDiv.appendChild(button)
+        document.querySelector("#todos-div").appendChild(newDiv)
     }) 
 }
 

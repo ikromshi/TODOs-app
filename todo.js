@@ -6,6 +6,8 @@ let todos = [
     { text: 'Get some rest', completed: false },
     { text: 'Play Valorant', completed: true }
 ]
+localStorage.setItem("todos", JSON.stringify(todos))
+
 todos = getSavedTodos()
 
 // Rendering user input
