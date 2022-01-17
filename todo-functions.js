@@ -1,3 +1,12 @@
+// Generating unique ID's to already present TODOs
+const generateId = function(todos) {
+    todos.forEach(function(todo) {
+        todo.id = uuidv4()
+    })
+}
+
+
+
 // Checking if the local storage is empty when refreshed
 const getSavedTodos = function() {
     const todosJSON = localStorage.getItem("todos")
@@ -15,6 +24,16 @@ const saveTodos = function(todos) {
 }
 
 
+// Remove TODOs
+const removeTodo = function(id) {
+    const todoIndex = todos.findIndex(function(todo) {
+        return todo.id === id
+    })
+    if (todoIndex > -1) {
+        todos.splice(todoIndex, 1)
+    }
+}
+
 // Rendering user input
 const renderTodos = function(todos, filters) {
     let output = todos.filter(function(item) {
@@ -24,12 +43,12 @@ const renderTodos = function(todos, filters) {
         return !filters.hideCompleted || !todo.completed
     })
     generateSummaryDOM(output)
-    generateTodoDOM(output)
+    generateTodoDOM(output, todos, filters)
 } 
 
 
 // Generates all to
-const generateTodoDOM = function(output) {
+const generateTodoDOM = function(output, todos, filters) {
     output.forEach(function(item) {
         const newDiv = document.createElement("div")
         const newSpan = document.createElement("span")
@@ -37,6 +56,12 @@ const generateTodoDOM = function(output) {
         const button = document.createElement("button")
 
         button.textContent = "Delete"
+        button.addEventListener("click", function() {
+            removeTodo(item.id)
+            saveTodos(todos)
+            renderTodos(todos, filters)
+        })
+
         checkbox.setAttribute("type", "checkbox")
 
         newDiv.appendChild(checkbox)

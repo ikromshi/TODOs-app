@@ -6,6 +6,7 @@ let todos = [
     { text: 'Get some rest', completed: false },
     { text: 'Play Valorant', completed: true }
 ]
+generateId(todos)
 localStorage.setItem("todos", JSON.stringify(todos))
 
 todos = getSavedTodos()
