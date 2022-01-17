@@ -52,17 +52,24 @@ const generateTodoDOM = function(output, todos, filters) {
     output.forEach(function(item) {
         const newDiv = document.createElement("div")
         const newSpan = document.createElement("span")
-        const checkbox = document.createElement("input")
-        const button = document.createElement("button")
 
+        const checkbox = document.createElement("input")
+        checkbox.setAttribute("type", "checkbox")
+        checkbox.checked = item.completed
+        checkbox.addEventListener("change", function (e) {
+            item.completed = !item.completed
+            saveTodos(todos)
+            renderTodos(todos, filters)
+        })
+
+
+        const button = document.createElement("button")
         button.textContent = "Delete"
         button.addEventListener("click", function() {
             removeTodo(item.id)
             saveTodos(todos)
             renderTodos(todos, filters)
         })
-
-        checkbox.setAttribute("type", "checkbox")
 
         newDiv.appendChild(checkbox)
         newSpan.textContent = `${item.text} ` 

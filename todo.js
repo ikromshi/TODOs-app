@@ -8,6 +8,7 @@ let todos = [
 ]
 generateId(todos)
 localStorage.setItem("todos", JSON.stringify(todos))
+// let todos = getSavedTodos()
 
 todos = getSavedTodos()
 
