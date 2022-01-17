@@ -25,9 +25,9 @@ document.querySelector("#search-todo").addEventListener("input", function(event)
 document.querySelector("#todos-form").addEventListener("submit", function(event) {
     event.preventDefault()
     const input = event.target.elements.userInput.value
-    todos.push({text: input, completed: false})
+    todos.push({id: uuidv4(), text: input, completed: false})
 
-    saveTodos()
+    saveTodos(todos)
     event.target.elements.userInput.value = ""
     renderTodos(todos, filters)
 })
