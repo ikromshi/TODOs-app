@@ -1,3 +1,5 @@
+"use strict"
+
 // Generating unique ID's to already present TODOs
 const generateId = (todos) => {
     todos.forEach((todo) => {

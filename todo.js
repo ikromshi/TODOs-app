@@ -1,3 +1,5 @@
+"use strict"
+
 let todos = [
     { text: 'Got to Wal Mart', completed: true },
     { text: 'Get eggs', completed: false },
