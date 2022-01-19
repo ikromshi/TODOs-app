@@ -6,12 +6,12 @@ const generateId = (todos) => {
 }
 
 
-
 // Checking if the local storage is empty when refreshed
 const getSavedTodos = () => {
     const todosJSON = localStorage.getItem("todos")
 
-    return todosJSON !== null ? JSON.parse(todosJSON) : []
+    // Using truthy/falsy values
+    return todosJSON ? JSON.parse(todosJSON) : []
 }
 
 
