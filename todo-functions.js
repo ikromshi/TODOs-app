@@ -10,8 +10,12 @@ const generateId = (todos) => {
 const getSavedTodos = () => {
     const todosJSON = localStorage.getItem("todos")
 
-    // Using truthy/falsy values
-    return todosJSON ? JSON.parse(todosJSON) : []
+    try {
+        // Using truthy/falsy values
+        return todosJSON ? JSON.parse(todosJSON) : []
+    } catch {
+        return []
+    }
 }
 
 
