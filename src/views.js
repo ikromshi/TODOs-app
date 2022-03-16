@@ -1,39 +1,11 @@
-"use strict"
-
-// Generating unique ID's to already present TODOs
-const generateId = (todos) => {
-    todos.forEach((todo) => {
-        todo.id = uuidv4()
-    })
-}
-
-// Checking if the local storage is empty when refreshed
-const getSavedTodos = () => {
-    const todosJSON = localStorage.getItem("todos")
-
-    try {
-        // Using truthy/falsy values
-        return todosJSON ? JSON.parse(todosJSON) : []
-    } catch {
-        return []
-    }
-}
-
-// Save TODOs to local storage
-const saveTodos = (todos) => {
-    localStorage.setItem("todos", JSON.stringify(todos))
-}
-
-// Remove TODOs
-const removeTodo = (id) => {
-    const todoIndex = todos.findIndex((todo) => todo.id === id)
-    if (todoIndex > -1) {
-        todos.splice(todoIndex, 1)
-    }
-}
+import { getTodos, toggleTodo, removeTodo } from "./todos"
+import { getFilters } from "./filters"
 
 // Rendering user input
-const renderTodos = (todos, filters) => {
+const renderTodos = () => {
+    const filters = getFilters()
+    const todos = getTodos()
+
     let output = todos.filter((item) => item.text.toLowerCase().includes(filters.searchText.toLowerCase()))
     output = output.filter((todo) => !filters.hideCompleted || !todo.completed)
 
@@ -44,13 +16,13 @@ const renderTodos = (todos, filters) => {
         document.querySelector("#todos-div").innerHTML = ""
         output = document.createElement("p")
         output.classList.add("empty-message")
-        output.textContent = "No to-dos to show"
+        output.textContent = "No TODOs to show"
         document.querySelector("#todos-div").appendChild(output)
     }
 } 
 
-// Generates all to
-const generateTodoDOM = (output, todos, filters) => {
+// Generates all TODOs
+const generateTodoDOM = (output) => {
     output.forEach((item) => {
         const newDiv = document.createElement("label")
         const containerEl = document.createElement("div")
@@ -64,9 +36,8 @@ const generateTodoDOM = (output, todos, filters) => {
         containerEl.appendChild(checkbox)
 
         checkbox.addEventListener("change", (e) => {
-            item.completed = !item.completed
-            saveTodos(todos)
-            renderTodos(todos, filters)
+            toggleTodo(item.id)
+            renderTodos()
         })
 
 
@@ -86,8 +57,7 @@ const generateTodoDOM = (output, todos, filters) => {
 
         button.addEventListener("click", () => {
             removeTodo(item.id)
-            saveTodos(todos)
-            renderTodos(todos, filters)
+            renderTodos()
         })
 
 
@@ -108,3 +78,4 @@ const generateSummaryDOM = (output) => {
     document.querySelector("#todos-div").appendChild(summary)
 }
 
+export { generateTodoDOM, renderTodos, generateSummaryDOM }
